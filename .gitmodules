@@ -1,0 +1,9 @@
+[submodule "6502_emulator"]
+	path = 6502_emulator
+	url = git@github.com:chemwolf6922/6502_emulator.git
+[submodule "6821_emulator"]
+	path = 6821_emulator
+	url = git@github.com:chemwolf6922/6821_emulator.git
+[submodule "tev"]
+	path = tev
+	url = git@github.com:chemwolf6922/tiny-event-loop.git
