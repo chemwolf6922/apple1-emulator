@@ -69,14 +69,16 @@ static void terminal_write(unsigned char c)
 {
     if ((c == (0x80 | '\r')) || (c == (0x80 | '\n')))
     {
-        write(STDOUT_FILENO, "\n", 1);
+        int rc = write(STDOUT_FILENO, "\n", 1);
+        (void)rc;
         return;
     }
     /** Lift 0 - 0x1F to 0x40 - 0x5F */ 
     c = c & 0x3F;
     if (!(c & 0x20))
         c |= 0x40;
-    write(STDOUT_FILENO, &c, 1);
+    int rc = write(STDOUT_FILENO, &c, 1);
+    (void)rc;
 }
 
 static void on_input(void* ctx)
@@ -93,6 +95,8 @@ static void on_input(void* ctx)
     /** filter out invalid key codes */
     if (!is_valid_key[c])
         return;
+    /** convert \n to \r */
+    c = c=='\n' ? '\r' : c;
     /** Set the 7th bit */
     c |= 0x80;
     if (this->iface.callbacks.on_data)
